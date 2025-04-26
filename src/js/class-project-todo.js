@@ -6,6 +6,7 @@ export class Project {
 	#projectDescription;
 	#projectPriority;
 	#projectToDoList = [];
+	#projectId;
 
 	static #projectList = [];
 
@@ -15,8 +16,9 @@ export class Project {
 		this.#projectDueDate = projectDueDate;
 		this.#projectDescription = projectDescription;
 		this.#projectPriority = projectPriority;
+		this.#projectId = crypto.randomUUID();
 
-		Project.#projectList.push({ projectName, projectDueDate, projectDescription, projectPriority });
+		Project.#projectList.push(this);
 	}
 	changeProjectName(newProjectName) {
 		this.#projectName = newProjectName
@@ -33,7 +35,6 @@ export class Project {
 	getProjectDescription() {
 		return this.#projectDescription;
 	}
-
 	getProjectPriority() {
 		return this.#projectPriority;
 	}

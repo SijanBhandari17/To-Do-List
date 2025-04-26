@@ -1,8 +1,14 @@
-import { createObject } from '/src/js/create-objects.js'
+import { createProjectObject } from '/src/js/create-projects.js'
+
+let dialog = null;
 
 export function addDialog() {
 
-    const dialog = document.createElement("dialog");
+    if (dialog) {
+        return dialog;
+    }
+
+    dialog = document.createElement("dialog");
     dialog.classList.add("add-dialog");
     dialog.innerHTML = `
 <img class="close-dialog-icon" src="https://img.icons8.com/ios/50/delete-sign--v1.png" alt="delete-sign--v1" />
@@ -50,7 +56,8 @@ function saveDialog(form, dialog) {
     dialog.close();
     const formData = new FormData(form);
     const dataEntries = Object.fromEntries(formData);
-    createObject(dataEntries)
+    createProjectObject(dataEntries)
+    form.reset();
     console.log(dataEntries);
 }
 

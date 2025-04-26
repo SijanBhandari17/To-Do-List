@@ -2,8 +2,8 @@ import { Project, Todo } from '/src/js/class-project-todo.js'
 
 import { initAsideBar } from '/src/js/aside-bar.js'
 
-export function createObject(data) {
-    new Project(data.projectName, data.projectDuedate, data.projectDescription, data.projectPriority);
+export function createProjectObject(data) {
+    new Project(data.projectName, data.projectDueDate, data.projectDescription, data.projectPriority);
     console.log(Project.getProjectList())
     initAsideBar();
     return 0;
