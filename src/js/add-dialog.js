@@ -1,49 +1,47 @@
 import { createProjectObject } from '/src/js/create-projects.js'
 
-let dialog = null;
-
-export function addDialog() {
-
-    if (dialog) {
-        return dialog;
-    }
-
-    dialog = document.createElement("dialog");
+(() => {
+    const dialog = document.createElement("dialog");
     dialog.classList.add("add-dialog");
+    document.body.appendChild(dialog);
+})()
+
+export function addDialog(objectType) {
+
+    const dialog = document.querySelector(".add-dialog");
     dialog.innerHTML = `
 <img class="close-dialog-icon" src="https://img.icons8.com/ios/50/delete-sign--v1.png" alt="delete-sign--v1" />
-<form action="#" class="add-project-form" id="add-project-form">
-    <h1>Book Info</h1>
-    <div class="project-name">
-        <input type="text" id="project-name" name="projectName" placeholder=" " required>
-        <label for="project-name">Project Name<span class="required">*</span></label>
+<form action="#" class="add-${objectType}-form" id="add-${objectType}-form">
+    <h1>${objectType} Info</h1>
+    <div class="${objectType}-name">
+        <input type="text" id="${objectType}-name" name="${objectType}Name" placeholder=" " required>
+        <label for="${objectType}-name">${objectType} Name<span class="required">*</span></label>
     </div>
-    <div class="project-description">
-        <input type="text" id="project-description" name="projectDescription" placeholder=" " required>
-        <label for="project-description">Project Description<span class="required">*</span></label>
+    <div class="${objectType}-description">
+        <input type="text" id="${objectType}-description" name="${objectType}Description" placeholder=" " required>
+        <label for="${objectType}-description">${objectType} Description<span class="required">*</span></label>
     </div>
-    <div class="project-due-date">
-        <input type="date" id="project-due-date" name="projectDueDate" placeholder=" " required>
-        <label for="project-due-date">Project-Due-Date<span class="required">*</span></label>
+    <div class="${objectType}-due-date">
+        <input type="date" id="${objectType}-due-date" name="${objectType}DueDate" placeholder=" " required>
+        <label for="${objectType}-due-date">${objectType} Due Date<span class="required">*</span></label>
     </div>
-    <div class="project-priority">
-        <label for="project-priority">Priority</label>
-        <select id="project-priority" name="projectPriority" form="add-project-form">
+    <div class="${objectType}-priority">
+        <label for="${objectType}-priority">Priority</label>
+        <select id="${objectType}-priority" name="${objectType}Priority" form="add-${objectType}-form">
             <option value="low">Low</option>
             <option value="medium">Medium</option>
             <option value="high">High</option>
         </select>
     </div>
-    <button type="submit" class="add-project">Add Project</button>
+    <button type="submit" class="add-${objectType}">Add ${objectType}</button>
 </form>
 `;
-    document.body.appendChild(dialog);
     addEventListenerToForm();
     return dialog;
 }
 function addEventListenerToForm() {
 
-    const form = document.querySelector(".add-project-form");
+    const form = document.querySelector("form");
     const dialog = document.querySelector(".add-dialog");
     form.addEventListener('submit', function(event) {
         event.preventDefault()

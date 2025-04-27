@@ -1,4 +1,5 @@
 import { Project, Todo } from "/src/js/class-project-todo";
+import { addDialog } from '/src/js/add-dialog.js'
 
 export function addEventAsidebar() {
 
@@ -25,5 +26,5 @@ function findTheElement(projectName) {
     const project = projectList.find((element) => {
         return element.getProjectName() == projectName;
     });
-    console.log(project)
+    addDialog("Todo").showModal();
 }

@@ -12,7 +12,7 @@ import { addDialog } from '/src/js/add-dialog.js'
 function addEventListenerToIcon() {
 	const addIcon = document.querySelector(".add-project-icon");
 	addIcon.addEventListener('click', () => {
-		addDialog().showModal();
+		addDialog("Project").showModal();
 	})
 }
 
