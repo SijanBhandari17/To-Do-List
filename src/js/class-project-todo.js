@@ -11,7 +11,6 @@ export class Project {
 	static #projectList = [];
 
 	constructor(projectName, projectDueDate = "", projectDescription = "", projectPriority = "") {
-		console.log(projectName)
 		this.#projectName = projectName;
 		this.#projectDueDate = projectDueDate;
 		this.#projectDescription = projectDescription;

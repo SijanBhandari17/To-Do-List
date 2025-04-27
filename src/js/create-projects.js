@@ -4,7 +4,6 @@ import { initAsideBar } from '/src/js/aside-bar.js'
 
 export function createProjectObject(data) {
     new Project(data.projectName, data.projectDueDate, data.projectDescription, data.projectPriority);
-    console.log(Project.getProjectList())
     initAsideBar();
     return 0;
 }

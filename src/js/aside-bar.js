@@ -12,6 +12,7 @@ import { addEventAsidebar } from '/src/js/create-todo.js'
 })()
 
 export function initAsideBar() {
+
 	const asideBarContent = document.querySelector(".aside-bar-content");
 	asideBarContent.innerHTML = ""
 

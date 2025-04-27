@@ -58,6 +58,5 @@ function saveDialog(form, dialog) {
     const dataEntries = Object.fromEntries(formData);
     createProjectObject(dataEntries)
     form.reset();
-    console.log(dataEntries);
 }
 
