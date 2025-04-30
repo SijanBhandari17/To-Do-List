@@ -11,13 +11,10 @@ export class Project {
 	static #projectList = [];
 
 	constructor(projectName, projectDueDate = "", projectDescription = "", projectPriority = "", skipStore = false) {
-		console.log(`Constructor called for project: ${projectName}`);
-		console.trace('Constructor call stack');
-
+		this.#projectPriority = projectPriority;
 		this.#projectName = projectName;
 		this.#projectDueDate = projectDueDate;
 		this.#projectDescription = projectDescription;
-		this.#projectPriority = projectPriority;
 		this.#projectId = crypto.randomUUID();
 
 		if (!skipStore) {
@@ -98,7 +95,6 @@ export class Project {
 
 		const parsedProjects = JSON.parse(storedProjects);
 		parsedProjects.forEach(projectData => {
-			console.log(projectData);
 			const project = new Project(
 				projectData.projectName,
 				projectData.projectDueDate,

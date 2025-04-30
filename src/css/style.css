@@ -1,0 +1,14 @@
+@font-face {
+	font-family: "MyFont";
+	src: url('/src/assets/Roboto-Light.ttf');
+
+}
+
+body {
+	font-family: MyFont
+}
+
+.add-project-icon,
+.add-todo-icon {
+	cursor: pointer
+}

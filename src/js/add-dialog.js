@@ -1,3 +1,4 @@
+import '/src/css/dialog.css'
 (() => {
     const dialog = document.createElement("dialog");
     dialog.classList.add("add-dialog");
@@ -34,7 +35,14 @@ export function addDialog(objectType) {
     <button type="submit" class="add-${objectType}">Add ${objectType}</button>
 </form>
 `;
+    addCloseEvent(dialog);
     return dialog;
+
+}
+function addCloseEvent(dialogElm) {
+    document.querySelector('.close-dialog-icon').addEventListener('click', () => {
+        dialogElm.close()
+    })
 }
 
 

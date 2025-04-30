@@ -1,0 +1,214 @@
+/* Dialog Base Styles */
+
+.add-dialog {
+	position: fixed;
+	/* top: 50%; */
+	/* left: 50%; */
+	/* transform: translate(-50%, -50%); */
+	background-color: #fff;
+	border-radius: 8px;
+	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+	padding: 24px;
+	width: 400px;
+	max-width: 90vw;
+	border: none;
+	z-index: 1000;
+}
+
+.add-dialog::backdrop {
+	background-color: rgba(0, 0, 0, 0.5);
+	backdrop-filter: blur(2px);
+}
+
+/* Close Icon */
+.close-dialog-icon {
+	position: absolute;
+	top: 16px;
+	right: 16px;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+	opacity: 0.6;
+	transition: opacity 0.2s ease;
+}
+
+.close-dialog-icon:hover {
+	opacity: 1;
+}
+
+/* Form Styles */
+.add-dialog form {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.add-dialog h1 {
+	margin: 0 0 16px;
+	font-size: 24px;
+	font-weight: 600;
+	color: #333;
+	text-transform: capitalize;
+}
+
+/* Input Container Styles */
+.add-dialog [class$="-name"],
+.add-dialog [class$="-description"],
+.add-dialog [class$="-due-date"],
+.add-dialog [class$="-priority"] {
+	position: relative;
+	width: 100%;
+	height: 50px;
+	/* Fixed height for all input containers */
+	margin-bottom: 8px;
+}
+
+/* Make description input taller */
+.add-dialog [class$="-description"] {
+	height: 50px;
+}
+
+/* Label Styles */
+.add-dialog label {
+	display: block;
+	font-size: 14px;
+	color: #555;
+}
+
+.add-dialog [class$="-name"] label,
+.add-dialog [class$="-description"] label,
+.add-dialog [class$="-due-date"] label {
+	position: absolute;
+	top: 50%;
+	left: 12px;
+	transform: translateY(-50%);
+	transition: all 0.2s ease;
+	pointer-events: none;
+	background-color: #fff;
+	padding: 0 4px;
+	z-index: 1;
+}
+
+.add-dialog [class$="-priority"] label {
+	margin-bottom: 6px;
+}
+
+.add-dialog input:focus~label,
+.add-dialog input:not(:placeholder-shown)~label {
+	top: 0;
+	font-size: 12px;
+	color: #4285f4;
+}
+
+/* Input Styles - Standardized height and appearance */
+.add-dialog input,
+.add-dialog select {
+	width: 100%;
+	height: 46px;
+	padding: 0 16px;
+	font-size: 16px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	background-color: #fff;
+	transition: border 0.2s ease;
+	box-sizing: border-box;
+}
+
+/* Ensure all inputs have the same dimensions */
+.add-dialog input[type="text"],
+.add-dialog input[type="date"],
+.add-dialog select {
+	display: block;
+	line-height: 46px;
+}
+
+.add-dialog input:focus,
+.add-dialog select:focus {
+	outline: none;
+	border-color: #4285f4;
+	box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+}
+
+/* Select Styles */
+.add-dialog select {
+	appearance: none;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 12px center;
+	padding-right: 36px;
+	cursor: pointer;
+}
+
+/* Button Styles */
+.add-dialog button[type="submit"] {
+	background-color: #4285f4;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	height: 46px;
+	padding: 0 20px;
+	font-size: 16px;
+	font-weight: 500;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+	text-transform: capitalize;
+	margin-top: 8px;
+}
+
+.add-dialog button[type="submit"]:hover {
+	background-color: #3367d6;
+}
+
+.add-dialog button[type="submit"]:active {
+	background-color: #2a56c6;
+}
+
+/* Required Field Indicator */
+.add-dialog .required {
+	color: #e53935;
+	margin-left: 2px;
+}
+
+/* Fix date input appearance across browsers */
+.add-dialog input[type="date"] {
+	appearance: none;
+	-webkit-appearance: none;
+	padding-right: 36px;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='16' y1='2' x2='16' y2='6'%3E%3C/line%3E%3Cline x1='8' y1='2' x2='8' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='10' x2='21' y2='10'%3E%3C/line%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 12px center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+	.add-dialog {
+		padding: 16px;
+		width: 100%;
+		max-width: calc(100vw - 32px);
+	}
+
+	.add-dialog h1 {
+		font-size: 20px;
+	}
+
+	.add-dialog input,
+	.add-dialog select,
+	.add-dialog button[type="submit"] {
+		height: 40px;
+		padding: 0 12px;
+		font-size: 14px;
+	}
+
+	.add-dialog input[type="text"],
+	.add-dialog input[type="date"],
+	.add-dialog select {
+		line-height: 40px;
+	}
+
+	.add-dialog [class$="-name"],
+	.add-dialog [class$="-description"],
+	.add-dialog [class$="-due-date"],
+	.add-dialog [class$="-priority"] {
+		height: 44px;
+	}
+}

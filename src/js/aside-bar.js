@@ -20,9 +20,7 @@ export function initAsideBar() {
 	asideBarContent.innerHTML = ""
 
 	const projectList = fetchAsideBarContent()
-	console.log(projectList)
 	Object.values(projectList).forEach((project) => {
-		console.log(project)
 
 		const individualProject = document.createElement('div');
 		individualProject.classList.add("individual-projects")
@@ -51,10 +49,9 @@ export function initAsideBar() {
 		projectTodo.classList.add('project-todo');
 		if (project.getProjectTodoList()) {
 			const todoList = project.getProjectTodoList();
-			console.log(todoList)
 
 			todoList.forEach((todo) => {
-				const todoName = document.createElement('p');
+				const todoName = document.createElement('h2');
 				todoName.textContent = todo.getTodoName();
 
 				const todoDescription = document.createElement('p');
