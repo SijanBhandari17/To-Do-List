@@ -1,5 +1,3 @@
-import { createProjectObject } from '/src/js/create-projects.js'
-
 (() => {
     const dialog = document.createElement("dialog");
     dialog.classList.add("add-dialog");
@@ -22,7 +20,7 @@ export function addDialog(objectType) {
         <label for="${objectType}-description">${objectType} Description<span class="required">*</span></label>
     </div>
     <div class="${objectType}-due-date">
-        <input type="date" id="${objectType}-due-date" name="${objectType}DueDate" placeholder=" " required>
+        <input type="date" id="${objectType}-due-date" name="${objectType}DueDate" placeholder=" " >
         <label for="${objectType}-due-date">${objectType} Due Date<span class="required">*</span></label>
     </div>
     <div class="${objectType}-priority">
@@ -36,25 +34,7 @@ export function addDialog(objectType) {
     <button type="submit" class="add-${objectType}">Add ${objectType}</button>
 </form>
 `;
-    addEventListenerToForm();
     return dialog;
 }
-function addEventListenerToForm() {
 
-    const form = document.querySelector("form");
-    const dialog = document.querySelector(".add-dialog");
-    form.addEventListener('submit', function(event) {
-        event.preventDefault()
-        saveDialog(form, dialog);
-    });
-
-}
-
-function saveDialog(form, dialog) {
-    dialog.close();
-    const formData = new FormData(form);
-    const dataEntries = Object.fromEntries(formData);
-    createProjectObject(dataEntries)
-    form.reset();
-}
 

@@ -1,74 +1,186 @@
 import { format, formatDistanceStrict, isPast, parse } from 'date-fns'
 
+
 export class Project {
 	#projectName;
 	#projectDueDate;
 	#projectDescription;
 	#projectPriority;
-	#projectToDoList = [];
+	#projectTodoList = [];
 	#projectId;
-
 	static #projectList = [];
 
-	constructor(projectName, projectDueDate = "", projectDescription = "", projectPriority = "") {
+	constructor(projectName, projectDueDate = "", projectDescription = "", projectPriority = "", skipStore = false) {
+		console.log(`Constructor called for project: ${projectName}`);
+		console.trace('Constructor call stack');
+
 		this.#projectName = projectName;
 		this.#projectDueDate = projectDueDate;
 		this.#projectDescription = projectDescription;
 		this.#projectPriority = projectPriority;
 		this.#projectId = crypto.randomUUID();
 
-		Project.#projectList.push(this);
+		if (!skipStore) {
+			Project.storeProjectList(this);
+		}
 	}
+
+	static storeProjectList(project) {
+		Project.#projectList.push(project);
+		Project.setToLocalStorage();
+	}
+
 	changeProjectName(newProjectName) {
-		this.#projectName = newProjectName
+		this.#projectName = newProjectName;
+		Project.setToLocalStorage();
 	}
+
 	changeProjectDate(newProjectDate) {
-		this.#projectDueDate = newProjectDate
+		this.#projectDueDate = newProjectDate;
+		Project.setToLocalStorage();
 	}
+
 	getProjectName() {
-		return this.#projectName
+		return this.#projectName;
 	}
+
 	getProjectDueDate() {
-		return this.#projectDueDate
+		return this.#projectDueDate;
 	}
+
 	getProjectDescription() {
 		return this.#projectDescription;
 	}
+
 	getProjectPriority() {
 		return this.#projectPriority;
 	}
+
+	getProjectId() {
+		return this.#projectId;
+	}
+
 	getProjectTodoList() {
-		return this.#projectToDoList;
+		return this.#projectTodoList;
 	}
+
 	createToDoList(todoObject) {
-		Todo(todoObject)
-		this.#projectToDoList.push(todoObject)
+		const todo = new Todo(todoObject);
+		this.#projectTodoList.push(todo);
+		Project.setToLocalStorage();
 	}
+
+	toJson() {
+		return {
+			projectName: this.#projectName,
+			projectDueDate: this.#projectDueDate,
+			projectDescription: this.#projectDescription,
+			projectPriority: this.#projectPriority,
+			projectId: this.#projectId,
+			projectTodoList: this.#projectTodoList.map((todo) => todo.toJson())
+		};
+	}
+
 	static getProjectList() {
+		return Project.#projectList;
+	}
+
+	static setToLocalStorage() {
+		const serializedProjects = Project.#projectList.map(project => project.toJson());
+		localStorage.setItem('projectList', JSON.stringify(serializedProjects));
+	}
+
+	static getFromLocalStorage() {
+		const storedProjects = localStorage.getItem('projectList');
+		if (!storedProjects) return [];
+
+		Project.#projectList = [];
+
+		const parsedProjects = JSON.parse(storedProjects);
+		parsedProjects.forEach(projectData => {
+			console.log(projectData);
+			const project = new Project(
+				projectData.projectName,
+				projectData.projectDueDate,
+				projectData.projectDescription,
+				projectData.projectPriority,
+				true
+			);
+
+			project.#projectId = projectData.projectId;
+
+			project.#projectTodoList = [];
+			if (projectData.projectTodoList && projectData.projectTodoList.length > 0) {
+				projectData.projectTodoList.forEach(todoData => {
+					const todo = new Todo({
+						TodoName: todoData.todoName,
+						TodoDueDate: todoData.todoDueDate,
+						TodoDescription: todoData.todoDescription,
+						TodoPriority: todoData.todoPriority
+					});
+					project.#projectTodoList.push(todo);
+				});
+			}
+
+			Project.#projectList.push(project);
+		});
+
 		return Project.#projectList;
 	}
 }
 
 export class Todo {
-
 	#todoName;
 	#todoDueDate;
+	#todoDescription;
+	#todoPriority;
 
 	constructor(todoObject) {
-		this.#todoName = todoObject[todoName];
-		this.#todoDueDate = todoObject[todoDueDate]
+		this.#todoName = todoObject.TodoName;
+		this.#todoDueDate = todoObject.TodoDueDate;
+		this.#todoDescription = todoObject.TodoDescription;
+		this.#todoPriority = todoObject.TodoPriority;
 	}
+
 	getTodoName() {
 		return this.#todoName;
 	}
+
 	getTodoDueDate() {
 		return this.#todoDueDate;
 	}
-	changeTodoName(newTodoName) {
-		this.#todoName = newTodoName
+
+	getTodoDescription() {
+		return this.#todoDescription;
 	}
+
+	getTodoPriority() {
+		return this.#todoPriority;
+	}
+
+	changeTodoName(newTodoName) {
+		this.#todoName = newTodoName;
+	}
+
 	changeTodoDate(newTodoDate) {
-		this.#todoDueDate = newTodoDate
+		this.#todoDueDate = newTodoDate;
+	}
+
+	changeTodoDescription(newDescription) {
+		this.#todoDescription = newDescription;
+	}
+
+	changeTodoPriority(newPriority) {
+		this.#todoPriority = newPriority;
+	}
+
+	toJson() {
+		return {
+			todoName: this.#todoName,
+			todoDueDate: this.#todoDueDate,
+			todoDescription: this.#todoDescription,
+			todoPriority: this.#todoPriority
+		};
 	}
 }
 

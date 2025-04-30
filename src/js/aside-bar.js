@@ -4,7 +4,10 @@ import { initialHomeProject } from './create-projects'
 import { addEventAsidebar } from '/src/js/create-todo.js'
 
 (() => {
-	initialHomeProject();
+
+	if (!localStorage.getItem('projectList')) {
+		initialHomeProject();
+	}
 	const asideBar = document.querySelector(".aside-bar")
 	const asideBarContent = document.createElement("div");
 	asideBarContent.classList.add("aside-bar-content")
@@ -19,6 +22,7 @@ export function initAsideBar() {
 	const projectList = fetchAsideBarContent()
 	console.log(projectList)
 	Object.values(projectList).forEach((project) => {
+		console.log(project)
 
 		const individualProject = document.createElement('div');
 		individualProject.classList.add("individual-projects")
@@ -43,11 +47,39 @@ export function initAsideBar() {
 		addTodo.classList.add("add-todo-icon")
 		addTodo.src = addIcon
 
+		const projectTodo = document.createElement('div');
+		projectTodo.classList.add('project-todo');
+		if (project.getProjectTodoList()) {
+			const todoList = project.getProjectTodoList();
+			console.log(todoList)
+
+			todoList.forEach((todo) => {
+				const todoName = document.createElement('p');
+				todoName.textContent = todo.getTodoName();
+
+				const todoDescription = document.createElement('p');
+				todoDescription.innerText = todo.getTodoDescription()
+
+				const todoDueDate = document.createElement('p');
+				todoDueDate.innerText = todo.getTodoDueDate();
+
+				const todoPriority = document.createElement('p');
+				todoPriority.innerText = todo.getTodoPriority();
+
+				projectTodo.appendChild(todoName);
+				projectTodo.appendChild(todoDueDate);
+				projectTodo.appendChild(todoDescription);
+				projectTodo.appendChild(todoPriority);
+
+			})
+		}
+
 		individualProject.appendChild(projectTitle);
 		individualProject.appendChild(addTodo);
 		individualProject.appendChild(projectDesc);
 		individualProject.appendChild(projectDueDate);
 		individualProject.appendChild(projectPriority);
+		individualProject.appendChild(projectTodo);
 
 		asideBarContent.appendChild(individualProject)
 

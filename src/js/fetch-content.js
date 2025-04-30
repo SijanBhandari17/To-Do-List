@@ -1,6 +1,8 @@
 import { Project, Todo } from "/src/js/class-project-todo";
 
 export function fetchAsideBarContent() {
-	return Project.getProjectList();
+	console.log(Project.getProjectList());
+	return Project.getFromLocalStorage();
+
 }
 
