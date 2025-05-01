@@ -6,7 +6,6 @@ export function fetchAsideBarContent() {
 }
 export function fetchMainContent(project) {
 
-
 	addMarkProject(project.getProjectId());
 
 	const mainContent = document.querySelector('.main-content');
@@ -60,7 +59,6 @@ export function fetchMainContent(project) {
 function addMarkProject(id) {
 
 	const selectedElement = document.querySelector('.selected');
-	console.log(selectedElement)
 	if (selectedElement) {
 		selectedElement.classList.remove('selected')
 	}

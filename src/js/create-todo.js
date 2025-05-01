@@ -46,6 +46,7 @@ async function addTodo(project) {
         addTodoToProject(project, todoInfo);
         todoDialog.close();
         initAsideBar();
+        fetchMainContent(project);
     }
     catch (error) {
         console.log(error)
