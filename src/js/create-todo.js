@@ -19,11 +19,9 @@ function handleAsidebarClick(event) {
         const projectElement = targetedElement.parentElement.querySelector('.project-title');
         const projectName = projectElement.textContent;
         const project = findTheElement(projectName);
-        console.log(project)
         addTodo(project);
     }
     if (targetedElement.tagName == 'H1' && targetedElement.classList.contains('project-title')) {
-        console.log(targetedElement.textContent)
         const project = findTheElement(targetedElement.textContent)
         fetchMainContent(project)
     }
@@ -42,7 +40,6 @@ async function addTodo(project) {
     const todoDialog = addDialog("Todo")
     todoDialog.showModal();
     const todoForm = document.querySelector('.add-Todo-form');
-    console.log(project)
 
     try {
         const todoInfo = await addEventToForms(todoForm);

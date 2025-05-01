@@ -6,6 +6,9 @@ export function fetchAsideBarContent() {
 }
 export function fetchMainContent(project) {
 
+
+	addMarkProject(project.getProjectId());
+
 	const mainContent = document.querySelector('.main-content');
 	mainContent.innerText = " "
 	const projectDesc = document.createElement("p");
@@ -51,5 +54,19 @@ export function fetchMainContent(project) {
 	mainContent.appendChild(projectDueDate);
 	mainContent.appendChild(projectPriority);
 	mainContent.appendChild(projectTodo);
+
+}
+
+function addMarkProject(id) {
+
+	const selectedElement = document.querySelector('.selected');
+	console.log(selectedElement)
+	if (selectedElement) {
+		selectedElement.classList.remove('selected')
+	}
+
+	const stringId = String(id);
+	const element = document.querySelector(`[data-id="${stringId}"]`);
+	element.classList.add('selected')
 }
 

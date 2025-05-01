@@ -179,6 +179,10 @@
  	color: var(--high-priority);
  }
 
+ .individual-projects.selected {
+ 	background-color: var(--medium-gray)
+ }
+
  /* Icons */
  .add-project-icon,
  .add-todo-icon {
