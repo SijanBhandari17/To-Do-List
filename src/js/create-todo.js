@@ -3,7 +3,7 @@ import { addDialog } from '/src/js/add-dialog.js'
 import { addEventToForms } from "./add-event-form";
 import { addTodoToProject } from "./add-todo-project"
 import { initAsideBar } from '/src/js/aside-bar.js'
-
+import { fetchMainContent } from "./fetch-content";
 
 export function addEventAsidebar() {
 
@@ -18,19 +18,31 @@ function handleAsidebarClick(event) {
     if (targetedElement.tagName == 'IMG' && targetedElement.classList.contains('add-todo-icon')) {
         const projectElement = targetedElement.parentElement.querySelector('.project-title');
         const projectName = projectElement.textContent;
-        findTheElement(projectName);
+        const project = findTheElement(projectName);
+        console.log(project)
+        addTodo(project);
+    }
+    if (targetedElement.tagName == 'H1' && targetedElement.classList.contains('project-title')) {
+        console.log(targetedElement.textContent)
+        const project = findTheElement(targetedElement.textContent)
+        fetchMainContent(project)
     }
 }
 
-async function findTheElement(projectName) {
+export function findTheElement(projectName) {
     const projectList = Project.getProjectList();
     const project = projectList.find((element) => {
         return element.getProjectName() == projectName;
     });
-    console.log(project)
+    return project;
+}
+
+async function addTodo(project) {
+
     const todoDialog = addDialog("Todo")
     todoDialog.showModal();
     const todoForm = document.querySelector('.add-Todo-form');
+    console.log(project)
 
     try {
         const todoInfo = await addEventToForms(todoForm);

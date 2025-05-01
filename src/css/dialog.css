@@ -2,9 +2,9 @@
 
 .add-dialog {
 	position: fixed;
-	/* top: 50%; */
-	/* left: 50%; */
-	/* transform: translate(-50%, -50%); */
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 	background-color: #fff;
 	border-radius: 8px;
 	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
@@ -163,13 +163,11 @@
 	background-color: #2a56c6;
 }
 
-/* Required Field Indicator */
 .add-dialog .required {
 	color: #e53935;
 	margin-left: 2px;
 }
 
-/* Fix date input appearance across browsers */
 .add-dialog input[type="date"] {
 	appearance: none;
 	-webkit-appearance: none;

@@ -8,6 +8,7 @@ export class Project {
 	#projectPriority;
 	#projectTodoList = [];
 	#projectId;
+
 	static #projectList = [];
 
 	constructor(projectName, projectDueDate = "", projectDescription = "", projectPriority = "", skipStore = false) {

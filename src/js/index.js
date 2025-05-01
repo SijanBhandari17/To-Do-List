@@ -1,14 +1,12 @@
 import '/src/template.html'
 import '/src/css/style.css'
 import { initAsideBar } from '/src/js/aside-bar.js'
-import { initMainContent } from '/src/js/main-content.js'
 import { addDialog } from '/src/js/add-dialog.js'
 import { createProjectObject } from '/src/js/create-projects.js'
 import { addEventToForms } from "./add-event-form";
 
 (() => {
 	initAsideBar();
-	initMainContent();
 	addEventListenerToIcon();
 })()
 

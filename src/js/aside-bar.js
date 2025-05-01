@@ -17,10 +17,11 @@ import { addEventAsidebar } from '/src/js/create-todo.js'
 export function initAsideBar() {
 
 	const asideBarContent = document.querySelector(".aside-bar-content");
-	asideBarContent.innerHTML = ""
+	asideBarContent.innerHTML = " "
 
 	const projectList = fetchAsideBarContent()
 	Object.values(projectList).forEach((project) => {
+
 
 		const individualProject = document.createElement('div');
 		individualProject.classList.add("individual-projects")
@@ -29,54 +30,38 @@ export function initAsideBar() {
 		projectTitle.classList.add("project-title");
 		projectTitle.textContent = project.getProjectName();
 
-		const projectDesc = document.createElement("p");
-		projectDesc.classList.add("project-description");
-		projectDesc.textContent = project.getProjectDescription();
-
-		const projectDueDate = document.createElement("p");
-		projectDueDate.classList.add("project-due-date");
-		projectDueDate.textContent = project.getProjectDueDate();
-
-		const projectPriority = document.createElement("p");
-		projectPriority.classList.add("project-priority");
-		projectPriority.textContent = project.getProjectPriority();
-
 		const addTodo = document.createElement("img");
 		addTodo.classList.add("add-todo-icon")
 		addTodo.src = addIcon
 
 		const projectTodo = document.createElement('div');
 		projectTodo.classList.add('project-todo');
-		if (project.getProjectTodoList()) {
-			const todoList = project.getProjectTodoList();
-
-			todoList.forEach((todo) => {
-				const todoName = document.createElement('h2');
-				todoName.textContent = todo.getTodoName();
-
-				const todoDescription = document.createElement('p');
-				todoDescription.innerText = todo.getTodoDescription()
-
-				const todoDueDate = document.createElement('p');
-				todoDueDate.innerText = todo.getTodoDueDate();
-
-				const todoPriority = document.createElement('p');
-				todoPriority.innerText = todo.getTodoPriority();
-
-				projectTodo.appendChild(todoName);
-				projectTodo.appendChild(todoDueDate);
-				projectTodo.appendChild(todoDescription);
-				projectTodo.appendChild(todoPriority);
-
-			})
-		}
+		// if (project.getProjectTodoList()) {
+		// 	const todoList = project.getProjectTodoList();
+		//
+		// 	todoList.forEach((todo) => {
+		// 		const todoName = document.createElement('h2');
+		// 		todoName.textContent = todo.getTodoName();
+		//
+		// 		const todoDescription = document.createElement('p');
+		// 		todoDescription.innerText = todo.getTodoDescription()
+		//
+		// 		const todoDueDate = document.createElement('p');
+		// 		todoDueDate.innerText = todo.getTodoDueDate();
+		//
+		// 		const todoPriority = document.createElement('p');
+		// 		todoPriority.innerText = todo.getTodoPriority();
+		//
+		// 		projectTodo.appendChild(todoName);
+		// 		projectTodo.appendChild(todoDueDate);
+		// 		projectTodo.appendChild(todoDescription);
+		// 		projectTodo.appendChild(todoPriority);
+		//
+		// 	})
+		// }
 
 		individualProject.appendChild(projectTitle);
 		individualProject.appendChild(addTodo);
-		individualProject.appendChild(projectDesc);
-		individualProject.appendChild(projectDueDate);
-		individualProject.appendChild(projectPriority);
-		individualProject.appendChild(projectTodo);
 
 		asideBarContent.appendChild(individualProject)
 
