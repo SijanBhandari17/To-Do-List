@@ -1,4 +1,5 @@
 import { Project, Todo } from "/src/js/class-project-todo";
+import '/src/css/todo.css'
 
 export function fetchAsideBarContent() {
 	return Project.getFromLocalStorage();
@@ -23,36 +24,45 @@ export function fetchMainContent(project) {
 	projectPriority.textContent = project.getProjectPriority();
 
 
-	const projectTodo = document.createElement('div');
-	projectTodo.classList.add('project-todo');
 	if (project.getProjectTodoList()) {
+		const projectTodo = document.createElement('div');
+		projectTodo.classList.add('project-todo');
 		const todoList = project.getProjectTodoList();
+		console.log(todoList)
 
 		todoList.forEach((todo) => {
 			const todoName = document.createElement('h2');
+			todoName.className = 'todo-name';
 			todoName.textContent = todo.getTodoName();
 
 			const todoDescription = document.createElement('p');
-			todoDescription.innerText = todo.getTodoDescription()
+			todoDescription.className = 'todo-description';
+			todoDescription.innerText = todo.getTodoDescription();
 
 			const todoDueDate = document.createElement('p');
+			todoDueDate.className = 'todo-due-date';
 			todoDueDate.innerText = todo.getTodoDueDate();
 
 			const todoPriority = document.createElement('p');
+			todoPriority.className = 'todo-priority';
 			todoPriority.innerText = todo.getTodoPriority();
+
+			todoName.addEventListener('click', (event) => showTodoContent(event));
 
 			projectTodo.appendChild(todoName);
 			projectTodo.appendChild(todoDueDate);
 			projectTodo.appendChild(todoDescription);
 			projectTodo.appendChild(todoPriority);
 
+			mainContent.appendChild(projectTodo);
 		})
+
+		projectTodo.style.order = 8
 	}
 
 	mainContent.appendChild(projectDesc);
 	mainContent.appendChild(projectDueDate);
 	mainContent.appendChild(projectPriority);
-	mainContent.appendChild(projectTodo);
 
 }
 
@@ -68,3 +78,14 @@ function addMarkProject(id) {
 	element.classList.add('selected')
 }
 
+function showTodoContent(event) {
+
+	const targetedEvent = event.target;
+	const siblingsNodes = targetedEvent.parentNode.childNodes;
+	const siblingsArray = Array.from(siblingsNodes)
+
+	siblingsArray.filter((element) => element != targetedEvent).forEach((element) => {
+		element.classList.add('show');
+	})
+
+}

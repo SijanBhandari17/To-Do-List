@@ -1,0 +1,12 @@
+.todo-description,
+.todo-due-date,
+.todo-priority {
+	display: none;
+}
+
+
+.todo-description.show,
+.todo-due-date.show,
+.todo-priority.show {
+	display: block;
+}
