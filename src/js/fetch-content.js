@@ -11,58 +11,41 @@ export function fetchMainContent(project) {
 
 	const mainContent = document.querySelector('.main-content');
 	mainContent.innerText = " "
+
 	const projectDesc = document.createElement("p");
 	projectDesc.classList.add("project-description");
 	projectDesc.textContent = project.getProjectDescription();
+
+	const projectInfo = document.createElement("div");
+	projectInfo.className = "project-info"
+
+	const infoDatePriority = document.createElement("div");
+	infoDatePriority.className = "project-info-date-priority"
 
 	const projectDueDate = document.createElement("p");
 	projectDueDate.classList.add("project-due-date");
 	projectDueDate.textContent = project.getProjectDueDate();
 
 	const projectPriority = document.createElement("p");
-	projectPriority.classList.add("project-priority");
-	projectPriority.textContent = project.getProjectPriority();
-
 
 	if (project.getProjectTodoList()) {
-		const projectTodo = document.createElement('div');
-		projectTodo.classList.add('project-todo');
-		const todoList = project.getProjectTodoList();
-		console.log(todoList)
+		fetchTodoContent(project);
 
-		todoList.forEach((todo) => {
-			const todoName = document.createElement('h2');
-			todoName.className = 'todo-name';
-			todoName.textContent = todo.getTodoName();
+	}
+	projectInfo.appendChild(projectDesc);
+	infoDatePriority.appendChild(projectDueDate);
 
-			const todoDescription = document.createElement('p');
-			todoDescription.className = 'todo-description';
-			todoDescription.innerText = todo.getTodoDescription();
+	if (project.getProjectPriority()) {
+		projectPriority.classList.add("project-priority");
+		projectPriority.classList.add(project.getProjectPriority())
+		projectPriority.textContent = project.getProjectPriority();
+		infoDatePriority.appendChild(projectPriority);
 
-			const todoDueDate = document.createElement('p');
-			todoDueDate.className = 'todo-due-date';
-			todoDueDate.innerText = todo.getTodoDueDate();
-
-			const todoPriority = document.createElement('p');
-			todoPriority.className = 'todo-priority';
-			todoPriority.innerText = todo.getTodoPriority();
-
-			todoName.addEventListener('click', (event) => showTodoContent(event));
-
-			projectTodo.appendChild(todoName);
-			projectTodo.appendChild(todoDueDate);
-			projectTodo.appendChild(todoDescription);
-			projectTodo.appendChild(todoPriority);
-
-			mainContent.appendChild(projectTodo);
-		})
-
-		projectTodo.style.order = 8
 	}
 
-	mainContent.appendChild(projectDesc);
-	mainContent.appendChild(projectDueDate);
-	mainContent.appendChild(projectPriority);
+	projectInfo.appendChild(infoDatePriority)
+
+	mainContent.appendChild(projectInfo)
 
 }
 
@@ -80,12 +63,72 @@ function addMarkProject(id) {
 
 function showTodoContent(event) {
 
-	const targetedEvent = event.target;
-	const siblingsNodes = targetedEvent.parentNode.childNodes;
-	const siblingsArray = Array.from(siblingsNodes)
+	const todoContainer = event.target.closest('.individual-todo-container');
+	const todoDetails = todoContainer.querySelectorAll('.todo-due-date, .todo-description, .todo-priority');
 
-	siblingsArray.filter((element) => element != targetedEvent).forEach((element) => {
-		element.classList.add('show');
-	})
+	todoDetails.forEach(element => {
+		element.classList.toggle('show');
+	});
 
 }
+function fetchTodoContent(project) {
+
+	const mainContent = document.querySelector('.main-content');
+	const projectTodo = document.createElement('div');
+	projectTodo.classList.add('project-todo');
+	const todoList = project.getProjectTodoList();
+	const sortedTodoList = sortTodoList(todoList);
+
+	sortedTodoList.forEach((todo) => {
+
+		const individualTodoContainer = document.createElement('div');
+		individualTodoContainer.className = 'individual-todo-container'
+
+		const todoDatePriority = document.createElement('div');
+		todoDatePriority.className = 'todo-date-priority'
+
+		const todoName = document.createElement('h2');
+		todoName.className = 'todo-name';
+		todoName.textContent = todo.getTodoName();
+
+		const todoDescription = document.createElement('p');
+		todoDescription.className = 'todo-description';
+		todoDescription.innerText = todo.getTodoDescription();
+
+		const todoDueDate = document.createElement('p');
+		todoDueDate.className = 'todo-due-date';
+		todoDueDate.innerText = todo.getTodoDueDate();
+
+		const todoPriority = document.createElement('p');
+		todoPriority.className = 'todo-priority';
+		todoPriority.classList.add(todo.getTodoPriority());
+		todoPriority.innerText = todo.getTodoPriority();
+
+		todoName.addEventListener('click', (event) => showTodoContent(event));
+
+		todoDatePriority.appendChild(todoDueDate)
+		todoDatePriority.appendChild(todoPriority)
+
+		individualTodoContainer.appendChild(todoName);
+		individualTodoContainer.appendChild(todoDescription);
+		individualTodoContainer.appendChild(todoDatePriority);
+
+		projectTodo.appendChild(individualTodoContainer)
+
+		mainContent.appendChild(projectTodo);
+	})
+	projectTodo.style.order = 8
+}
+
+function sortTodoList(todoList) {
+	const map = new Map();
+	const order = ["high", "medium", "low"];
+	console.log(map)
+
+	order.forEach((x, i) => map.set(x, i));
+
+	return todoList.sort((x, y) => {
+		return map.get(x.getTodoPriority()) - map.get(y.getTodoPriority())
+	});
+}
+

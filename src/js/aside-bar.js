@@ -40,9 +40,6 @@ export function initAsideBar() {
 		addTodo.classList.add("add-todo-icon")
 		addTodo.src = addIcon
 
-		const projectTodo = document.createElement('div');
-		projectTodo.classList.add('project-todo');
-
 		individualProject.dataset.id = project.getProjectId();
 
 		individualProject.appendChild(projectTitle);
