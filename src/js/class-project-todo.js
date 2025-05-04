@@ -37,6 +37,10 @@ export class Project {
 		this.#projectDueDate = newProjectDate;
 		Project.setToLocalStorage();
 	}
+	updateProjectTodoList(todo) {
+		this.#projectTodoList = this.#projectTodoList.filter((element) => element != todo);
+		Project.setToLocalStorage();
+	}
 
 	getProjectName() {
 		return this.#projectName;

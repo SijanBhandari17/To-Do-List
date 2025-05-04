@@ -18,9 +18,6 @@
  	--dark-gray: #333333;
  	--danger-color: #e74c3c;
  	--success-color: #27ae60;
- 	--low-priority: #27ae60;
- 	--medium-priority: #f39c12;
- 	--high-priority: #e74c3c;
  	--shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
  	--border-radius: 6px;
  }
