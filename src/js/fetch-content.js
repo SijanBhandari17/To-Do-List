@@ -1,9 +1,9 @@
 import { Project, Todo } from "/src/js/class-project-todo";
+import { getTodayDue } from "./date-time";
 import '/src/css/todo.css'
 
 export function fetchAsideBarContent() {
 	return Project.getFromLocalStorage();
-
 }
 export function fetchMainContent(project) {
 
@@ -94,6 +94,10 @@ function fetchTodoContent(project) {
 		todoDueDate.className = 'todo-due-date';
 		todoDueDate.innerText = todo.getTodoDueDate();
 
+		const todoDueTime = document.createElement('p');
+		todoDueTime.className = 'todo-due-time';
+		todoDueTime.innerText = todo.getTodoDueTime();
+
 		const todoPriority = document.createElement('p');
 		todoPriority.className = 'todo-priority';
 		todoPriority.classList.add(todo.getTodoPriority());
@@ -102,6 +106,7 @@ function fetchTodoContent(project) {
 		todoName.addEventListener('click', (event) => showTodoContent(event));
 
 		todoDatePriority.appendChild(todoDueDate)
+		todoDatePriority.appendChild(todoDueTime)
 		todoDatePriority.appendChild(todoPriority)
 
 		individualTodoContainer.appendChild(checkboxContainer)
@@ -113,6 +118,7 @@ function fetchTodoContent(project) {
 		mainContent.appendChild(projectTodo);
 	})
 	projectTodo.style.order = 8
+	getTodayDue();
 
 }
 

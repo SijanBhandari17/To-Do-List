@@ -55,6 +55,7 @@
 .add-dialog [class$="-name"],
 .add-dialog [class$="-description"],
 .add-dialog [class$="-due-date"],
+.add-dialog [class$="-due-time"],
 .add-dialog [class$="-priority"] {
 	position: relative;
 	width: 100%;
@@ -77,7 +78,8 @@
 
 .add-dialog [class$="-name"] label,
 .add-dialog [class$="-description"] label,
-.add-dialog [class$="-due-date"] label {
+.add-dialog [class$="-due-date"] label,
+.add-dialog [class$="-due-time"] label {
 	position: absolute;
 	top: 50%;
 	left: 12px;
@@ -117,6 +119,7 @@
 /* Ensure all inputs have the same dimensions */
 .add-dialog input[type="text"],
 .add-dialog input[type="date"],
+.add-dialog input[type="time"],
 .add-dialog select {
 	display: block;
 	line-height: 46px;

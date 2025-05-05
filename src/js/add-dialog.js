@@ -24,6 +24,10 @@ export function addDialog(objectType) {
         <input type="date" id="${objectType}-due-date" name="${objectType}DueDate" placeholder=" " >
         <label for="${objectType}-due-date">${objectType} Due Date<span class="required">*</span></label>
     </div>
+    <div class="${objectType}-due-time">
+        <input type="time" id="${objectType}-due-time" name="${objectType}DueTime" placeholder=" " >
+        <label for="${objectType}-due-time">${objectType} Due Time<span class="required">*</span></label>
+    </div>
     <div class="${objectType}-priority">
         <label for="${objectType}-priority">Priority</label>
         <select id="${objectType}-priority" name="${objectType}Priority" form="add-${objectType}-form">

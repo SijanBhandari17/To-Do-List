@@ -24,6 +24,11 @@
 	margin-right: 0.5rem;
 }
 
+.todo-due-time::before {
+	content: "⏱";
+	margin-right: 0.5rem;
+}
+
 .todo-date-priority {
 	display: flex;
 	gap: 1rem;

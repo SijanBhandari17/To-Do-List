@@ -9,7 +9,4 @@ export function createProjectObject(data) {
 }
 export function initialHomeProject() {
     new Project("Home", "", "This is the initial project you will have. Add your daily To-Do's which is not linked to any project here");
-
-    // Optional: You could also verify it worked by logging
-    console.log("Home project initialized:", Project.getProjectList());
 }

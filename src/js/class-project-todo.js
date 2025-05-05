@@ -1,4 +1,3 @@
-import { format, formatDistanceStrict, isPast, parse } from 'date-fns'
 
 
 export class Project {
@@ -117,7 +116,8 @@ export class Project {
 						TodoName: todoData.todoName,
 						TodoDueDate: todoData.todoDueDate,
 						TodoDescription: todoData.todoDescription,
-						TodoPriority: todoData.todoPriority
+						TodoPriority: todoData.todoPriority,
+						TodoDueTime: todoData.todoDueTime
 					});
 					project.#projectTodoList.push(todo);
 				});
@@ -135,12 +135,15 @@ export class Todo {
 	#todoDueDate;
 	#todoDescription;
 	#todoPriority;
+	#todoDueTime;
 
 	constructor(todoObject) {
+		console.log(todoObject)
 		this.#todoName = todoObject.TodoName;
 		this.#todoDueDate = todoObject.TodoDueDate;
 		this.#todoDescription = todoObject.TodoDescription;
 		this.#todoPriority = todoObject.TodoPriority;
+		this.#todoDueTime = todoObject.TodoDueTime;
 	}
 
 	getTodoName() {
@@ -149,6 +152,10 @@ export class Todo {
 
 	getTodoDueDate() {
 		return this.#todoDueDate;
+	}
+
+	getTodoDueTime() {
+		return this.#todoDueTime;
 	}
 
 	getTodoDescription() {
@@ -167,6 +174,10 @@ export class Todo {
 		this.#todoDueDate = newTodoDate;
 	}
 
+	changeTodoTime(newTodoTime) {
+		this.#todoDueTime = newTodoTime;
+	}
+
 	changeTodoDescription(newDescription) {
 		this.#todoDescription = newDescription;
 	}
@@ -179,21 +190,10 @@ export class Todo {
 		return {
 			todoName: this.#todoName,
 			todoDueDate: this.#todoDueDate,
+			todoDueTime: this.#todoDueTime,
 			todoDescription: this.#todoDescription,
 			todoPriority: this.#todoPriority
 		};
 	}
 }
-
-// function checkDueDate() {
-// 	dueDate = this.getTodoDueDate() || this.getProjectDueDate()
-// 	currentDate = new Date();
-// 	console.log(format(currentDate, 'yyyy-MM-dd'));
-// 	const resultDate = formatDistanceStrict(dueDate, currentDate)
-// 	console.log(resultDate)
-// }
-//
-// Object.assign(Todo.prototype, checkDueDate());
-// Object.assign(Project.prototype, checkDueDate());
-//
 
