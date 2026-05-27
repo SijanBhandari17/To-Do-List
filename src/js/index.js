@@ -1,4 +1,3 @@
-import '/src/template.html'
 import '/src/css/style.css'
 import { initAsideBar } from '/src/js/aside-bar.js'
 import { addDialog } from '/src/js/add-dialog.js'

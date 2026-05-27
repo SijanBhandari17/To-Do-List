@@ -3,16 +3,14 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: "./src/js/index.js",
+
   output: {
-    filename: "main.js",
     path: path.resolve(__dirname, "dist"),
+    filename: "main.js",
+    publicPath: "/To-Do-List/",
     clean: true,
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: "./src/template.html",
-    }),
-  ],
+
   module: {
     rules: [
       {
@@ -20,13 +18,19 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
+        test: /\.(png|jpg|jpeg|gif|svg|ttf)$/i,
+        type: "asset/resource",
+      },
+      {
         test: /\.html$/i,
         loader: "html-loader",
       },
-      {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: "asset/resource",
-      },
     ],
   },
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./src/template.html",
+    }),
+  ],
 };

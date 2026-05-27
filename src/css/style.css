@@ -1,6 +1,6 @@
  @font-face {
  	font-family: "MyFont";
- 	src: url('/src/assets/Roboto-Light.ttf');
+ 	src: url('../assets/Roboto-Light.ttf');
  }
 
  * {
